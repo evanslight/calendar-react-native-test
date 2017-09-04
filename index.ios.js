@@ -13,11 +13,11 @@ export default class AwesomeProject extends Component {
   constructor (props) {
   super(props);
   this.state = {
-    startDate: new Date(2017, 9, 5),  
+    startDate: new Date(),  
     isDateTimePickerVisible: false,
     isTimePickerVisible: false,
     isEndTimePickerVisible: false,
-    endDate: new Date(2017, 9, 20)
+    endDate: new Date()
   };
   this.confirmDate = this.confirmDate.bind(this);
   this.openCalendar = this.openCalendar.bind(this);
