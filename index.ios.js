@@ -1,150 +1,103 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+import React from 'react';
+import {
+  AppRegistry,
+  Text,
+  View,
+  Button,
+  TextInput,
+  StyleSheet, 
+  Image,
+  TouchableOpacity,
+  KeyboardAvoidingView
+} from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import Calendarpicker from './src/Calendarpicker/Calendarpicker';
 
-import React, { Component } from 'react';
-import { Text, TouchableOpacity, AppRegistry, Button, View } from 'react-native';
-import DateTimePicker from 'react-native-modal-datetime-picker';
-import Calendar from 'react-native-calendar-select';
 
-export default class AwesomeProject extends Component {
-  constructor (props) {
-  super(props);
-  this.state = {
-    startDate: new Date(),  
-    isDateTimePickerVisible: false,
-    isTimePickerVisible: false,
-    isEndTimePickerVisible: false,
-    endDate: new Date()
+class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Login',
   };
-  this.confirmDate = this.confirmDate.bind(this);
-  this.openCalendar = this.openCalendar.bind(this);
-}
-
-confirmDate({startDate, endDate, startMoment, endMoment}) {
-  this.setState({
-    startDate,
-    endDate
-  });
-  console.log('A  ~~~~~~~~~~~~~~~~~start~~~~~~~~~~~~~~~~~start has been picked: ', startDate);
-  console.log('A  ~~~~~~~~~~~~~~~~~end~~~~~~~~~~~~~~~~~end has been picked: ', endDate);
-}
-openCalendar() {
-  this.calendar && this.calendar.open();
-}
-
-  _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
-
-  _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
-
-  _handleDatePicked = (date) => {
-    console.log('A date========== has been picked: ', date);
-    this._hideDateTimePicker();
-  };
-
-  _showTimePicker = () => this.setState({ isTimePickerVisible: true });
-
-  _hideTimePicker = () => this.setState({ isTimePickerVisible: false });
-
-  _handleTimePicked = (date) => {
-    console.log('A lalalalalalalalalal has been picked: ', date);
-    this._hideTimePicker();
-  };
-
-  _showEndTimePicker = () => this.setState({ isEndTimePickerVisible: true });
-
-  _hideEndTimePicker = () => this.setState({ isEndTimePickerVisible: false });
-
-  _handleEndTimePicked = (date) => {
-    console.log('A  endendendendendendendendendend has been picked: ', date);
-    this._hideEndTimePicker();
-  };
-
-  render () {
-    let customI18n = {
-    'w': ['', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
-    'weekday': ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    'text': {
-      'start': 'Check in',
-      'end': 'Check out',
-      'date': 'Date',
-      'save': 'Confirm',
-      'clear': 'Reset'
-    },
-    'date': 'DD / MM'  // date format
-  };
-  // optional property, too.
-  let color = {
-    subColor: '#f0f0f0'
-  };
-
+  render() {
+    const { navigate } = this.props.navigation;
     return (
-      <View style={{ flex: 1, justifyContent: 'center',
-        alignItems: 'center', }}>
-        <View>
-      <Button title="Open Calendar" onPress={this.openCalendar}/>
-      <Calendar
-        i18n="en"
-        ref={(calendar) => {this.calendar = calendar;}}
-        customI18n={customI18n}
-        color={color}
-        format="YYYYMMDD"
-        minDate="20170410"
-        maxDate="20280312"
-        startDate={this.state.startDate}
-        endDate={this.state.endDate}
-        onConfirm={this.confirmDate}
-      />
+      <View style={styles.container}>
+        <View style={styles.logocontainer}>
+          <Image
+          style={styles.logo} 
+          source={require('./img/calendartime.png')} 
+          />
         </View>
-        <View>
-        <TouchableOpacity onPress={this._showDateTimePicker}>
-          <Text>Show Datepicker</Text>
-          <Text>Show Datepicker</Text>
-        </TouchableOpacity>
-        <DateTimePicker
-          isVisible={this.state.isDateTimePickerVisible}
-          onConfirm={this._handleDatePicked}
-          onCancel={this._hideDateTimePicker}
-          mode={'date'}
-          datePickerModeAndroid='spinner'
+        <KeyboardAvoidingView behavior="padding" style={styles.logincontainer}>
+        <TextInput 
+        style={styles.inputpart} 
+        placeholder="Please input your email"
+        onSubmitEditing={() => this.passwordInput.focus()}
+        keyboardType="email-address"
+        autoCapitalize="none"
+        autoCorrect={false}
+        placeholderTextColor="rgba(255,255,255,0.7)"
+        onChangeText={(text) => this.setState({text})} 
         />
-        </View>
-
-        <View>
-        <TouchableOpacity onPress={this._showTimePicker}>
-          <Text> </Text>
-          <Text>Show StartTimePicker</Text>
-          <Text>Show StartTimePicker</Text>
-        </TouchableOpacity>
-        <DateTimePicker
-          isVisible={this.state.isTimePickerVisible}
-          onConfirm={this._handleTimePicked}
-          onCancel={this._hideTimePicker}
-          mode={'time'}
+        <TextInput 
+        style={styles.inputpart}
+        placeholder="Please input your password"
+        placeholderTextColor="rgba(255,255,255,0.7)"
+        secureTextEntry
+        onChangeText={(text) => this.setState({text})} 
+        ref={(input) => this.passwordInput = input}
         />
-        </View>
-
-        <View>
-        <TouchableOpacity onPress={this._showEndTimePicker}>
-          <Text> </Text>
-          <Text>Show EndTimePicker</Text>
-          <Text>Show EndTimePicker</Text>
-        </TouchableOpacity>
-        <DateTimePicker
-          isVisible={this.state.isEndTimePickerVisible}
-          onConfirm={this._handleEndTimePicked}
-          onCancel={this._hideEndTimePicker}
-          mode={'time'}
+        <Button
+          onPress={() => navigate('PickerOB')}
+          title="Calendar Time Picker"
         />
-        </View>
-
+        </KeyboardAvoidingView>
       </View>
     );
   }
-
 }
 
+const AwesomeProject = StackNavigator({
+  Home: { screen: HomeScreen },
+  PickerOB: { screen: Calendarpicker },
+});
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#2ecc71',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  inputpart: {
+    height: 40, 
+    width: 260, 
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    marginBottom: 20,
+    color: '#FFF',
+    paddingHorizontal: 10
+  },
+  logocontainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  logo: {
+    width: 100,
+    height: 100
+
+  },
+  logincontainer: {
+    marginTop: 10,
+
+  }
+
+
+});
 
 AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);

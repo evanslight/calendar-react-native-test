@@ -1,0 +1,58 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
+
+import React, { Component, PropTypes } from 'react';
+import { Text, TouchableOpacity, AppRegistry, Button, View, StyleSheet, NavigatorIOS } from 'react-native';
+import Calendarpicker from '../Calendarpicker/Calendarpicker';
+import { StackNavigator } from 'react-navigation';
+
+const SimpleApp = StackNavigator({
+  Chat: { screen: Calendarpicker },
+});
+
+export default class Login extends Component {
+	static navigationOptions = {
+    	title: 'Welcome',
+  	};
+	render() {
+		const { navigate } = this.props.navigation;
+		
+    	return (
+    		<View style={styles.container}>
+    			<Text>Hello, Chat App!</Text>
+    			<Text>Hello, Chat App!</Text>
+    			<Text>Hello, Chat App!</Text>
+    			<Text>Hello, Chat App!</Text>
+
+    			<Button
+          			onPress={() => navigate('Chat')}
+          			title="Chat with Lucy"
+        		/>
+
+        	</View>
+
+    	);
+  }
+
+}
+
+
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: '#34495e',
+		justifyContent: 'center',
+		alignItems: 'center'
+
+	}
+
+
+});
+
+AppRegistry.registerComponent('Login', () => Login);
+
+

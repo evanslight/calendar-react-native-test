@@ -9,7 +9,7 @@ import { Text, TouchableOpacity, AppRegistry, Button, View } from 'react-native'
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import Calendar from 'react-native-calendar-select';
 
-export default class AwesomeProject extends Component {
+export default class Calendarpicker extends Component {
   constructor (props) {
   super(props);
   this.state = {
@@ -22,6 +22,7 @@ export default class AwesomeProject extends Component {
   this.confirmDate = this.confirmDate.bind(this);
   this.openCalendar = this.openCalendar.bind(this);
 }
+
 
 confirmDate({startDate, endDate, startMoment, endMoment}) {
   this.setState({
@@ -147,4 +148,4 @@ openCalendar() {
 }
 
 
-AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
+AppRegistry.registerComponent('Calendarpicker', () => Calendarpicker);
